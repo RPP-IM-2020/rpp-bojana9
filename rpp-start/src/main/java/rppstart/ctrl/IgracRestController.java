@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,18 +33,21 @@ public class IgracRestController {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
+	@CrossOrigin
 	@ApiOperation(value = "Returns collection of all Igrac from database.")
 	@GetMapping("igrac")
 	public Collection<Igrac> getAll() {
 		return igracRepository.findAll();
 	}
 
+	@CrossOrigin
 	@ApiOperation(value = "Returns Igrac with id that was forwarded as path variable.")
 	@GetMapping("igrac/{id}")
 	public Igrac getOne(@PathVariable("id") Integer id) {
 		return igracRepository.getOne(id);
 	}
 
+	@CrossOrigin
 	@ApiOperation(value = "Returns collection of Igrac for Tim with id that was forwarded as path variable.")
 	@GetMapping("igraciTima/{id}")
 	public Collection<Igrac> getAllForTim(@PathVariable("id") Integer id) {
@@ -51,12 +55,14 @@ public class IgracRestController {
 		return igracRepository.findByTim(t);
 	}
 
+	@CrossOrigin
 	@ApiOperation(value = "Returns Igrac with brojReg that was forwarded as path variable.")
 	@GetMapping("igracBrojReg/{brojReg}")
 	public Collection<Igrac> getByBrojReg(@PathVariable("brojReg") String brojReg) {
 		return igracRepository.findByBrojRegContainingIgnoreCase(brojReg);
 	}
 
+	@CrossOrigin
 	@ApiOperation(value = "Adds instance of Igrac to database.")
 	@PostMapping("igrac")
 	public ResponseEntity<HttpStatus> addOne(@RequestBody Igrac igrac) {
@@ -64,6 +70,7 @@ public class IgracRestController {
 		return new ResponseEntity<HttpStatus>(HttpStatus.CREATED);
 	}
 
+	@CrossOrigin
 	@ApiOperation(value = "Updates Igrac that has id that was forwarded as path variable with values forwarded in Request Body.")
 	@PutMapping("igrac/{id}")
 	public ResponseEntity<HttpStatus> updateOne(@RequestBody Igrac igrac, @PathVariable("id") Integer id) {
@@ -75,6 +82,7 @@ public class IgracRestController {
 		return new ResponseEntity<HttpStatus>(HttpStatus.OK);
 	}
 
+	@CrossOrigin
 	@ApiOperation(value = "Deletes Igrac with id that was forwarded as path variable.")
 	@DeleteMapping("igrac/{id}")
 	public ResponseEntity<HttpStatus> delete(@PathVariable Integer id) {

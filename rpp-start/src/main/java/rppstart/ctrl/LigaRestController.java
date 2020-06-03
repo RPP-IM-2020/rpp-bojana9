@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,24 +28,28 @@ public class LigaRestController {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
+	@CrossOrigin
 	@ApiOperation(value = "Returns collection of all Liga from database.")
 	@GetMapping("liga")
 	public Collection<Liga> getAll() {
 		return ligaRepository.findAll();
 	}
 
+	@CrossOrigin
 	@ApiOperation(value = "Returns Liga with id that was forwarded as path variable.")
 	@GetMapping("liga/{id}")
 	public Liga getOne(@PathVariable("id") Integer id) {
 		return ligaRepository.getOne(id);
 	}
 
+	@CrossOrigin
 	@ApiOperation(value = "Returns Liga with name that was forwarded as path variable.")
 	@GetMapping("liga/naziv/{naziv}")
 	public Collection<Liga> getByNaziv(@PathVariable("naziv") String naziv) {
 		return ligaRepository.findByNazivContainingIgnoreCase(naziv);
 	}
 
+	@CrossOrigin
 	@ApiOperation(value = "Adds instance of Liga to database.")
 	@PostMapping("liga")
 	public ResponseEntity<HttpStatus> addLiga(@RequestBody Liga liga) {
@@ -53,6 +58,7 @@ public class LigaRestController {
 		return new ResponseEntity<HttpStatus>(HttpStatus.CREATED);
 	}
 
+	@CrossOrigin
 	@ApiOperation(value = "Updates Liga that has id that was forwarded as path variable with values forwarded in Request Body.")
 	@PutMapping("liga/{id}")
 	public ResponseEntity<HttpStatus> updateLiga(@RequestBody Liga liga, @PathVariable("id") Integer id) {
@@ -65,6 +71,7 @@ public class LigaRestController {
 		return new ResponseEntity<HttpStatus>(HttpStatus.NOT_FOUND);
 	}
 
+	@CrossOrigin
 	@ApiOperation(value = "Deletes Liga with id that was forwarded as path variable.")
 	@DeleteMapping("liga/{id}")
 	public ResponseEntity<HttpStatus> deleteLiga(@PathVariable Integer id) {
